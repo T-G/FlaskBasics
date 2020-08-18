@@ -1,5 +1,6 @@
-from flask import Flask, render_template, abort, jsonify
-from model import db
+from flask import (Flask, render_template, request, abort,
+                   jsonify, redirect, url_for)
+from model import db, save_db
 
 # Flask Constructor
 app = Flask(__name__)
@@ -21,6 +22,17 @@ def card_view(index):
                                pagetitle="Flash Card")
     except IndexError:
         abort(404)
+
+@app.route('/add_card', methods=['POST', 'GET'])
+def add_card():
+    if request.method == 'POST':
+        # form has been submitted, process data
+        card = {"question": request.form['question'],
+                 "answer": request.form['answer']}
+        db.append(card)
+        save_db()
+        return redirect(url_for('card_view', index=len(db)-1))
+    return render_template('add_card.html', pagetitle="Add Card")
 
 # SERVING REST API
 @app.route('/api/card')
