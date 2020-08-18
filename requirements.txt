@@ -1,5 +1,7 @@
-requirements.txt found, instead of Pipfile! Converting…
-Warning: Your Pipfile now contains pinned versions, if your requirements.txt did. 
-We recommend updating your Pipfile to specify the "*" version, instead.
--i https://pypi.org/simple
-
+click==7.1.2
+Flask==1.1.2
+itsdangerous==1.1.0
+Jinja2==2.11.2
+MarkupSafe==1.1.1
+pkg-resources==0.0.0
+Werkzeug==1.0.1
