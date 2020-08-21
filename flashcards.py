@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 # Decorator - View Function
 @app.route('/')
-def welcome():
+def index_view():
     return render_template('index.html',
                            cards=db,
                            pagetitle="Flask App")
@@ -16,15 +16,17 @@ def welcome():
 def card_view(index):
     try:
         card = db[index]
+        max_index = len(db) - 1
         return render_template('card.html',
                                card = card,
                                index=index,
+                               max_index=max_index,
                                pagetitle="Flash Card")
     except IndexError:
         abort(404)
 
 @app.route('/add_card', methods=['POST', 'GET'])
-def add_card():
+def add_card_view():
     if request.method == 'POST':
         # form has been submitted, process data
         card = {"question": request.form['question'],
@@ -33,6 +35,23 @@ def add_card():
         save_db()
         return redirect(url_for('card_view', index=len(db)-1))
     return render_template('add_card.html', pagetitle="Add Card")
+
+#Remove card
+@app.route('/remove_card/<int:index>', methods=['GET', 'POST'])
+def remove_card_view(index):
+    try:
+        card = db[index]
+        if request.method == 'POST':
+            # del db[index]
+            db.remove(card)
+            save_db()
+            return redirect(url_for('index_view'))
+        return render_template('remove_card.html',
+                               card=card,
+                               index=index,
+                               pagetitle="Remove Flash Card")
+    except IndexError:
+        abort(404)
 
 # SERVING REST API
 @app.route('/api/card')

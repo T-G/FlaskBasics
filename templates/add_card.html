@@ -2,7 +2,7 @@
 
 {% block body %}
 <h1>Add a new card</h1>
-<form action="{{ url_for('add_card') }}" method="post">
+<form action="{{ url_for('add_card_view') }}" method="post">
   <div class="form-group">
     <label for="question">Question</label>
     <input type="text" class="form-control" id="question" aria-describedby="nameHelp" name="question" placeholder="Enter Question">

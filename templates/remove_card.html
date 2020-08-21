@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block body %}
+<h1>Remove flash card</h1>
+    Question: {{ card.question }} <br>
+    Answer: {{ card.answer }}
+<h2>Are you sure?</h2>
+<form method="POST">
+    <button class="btn btn-sm btn-primary" type="submit">Yes</button>
+    <a href="{{ url_for('index_view') }}">No</a>
+</form>
+{% endblock %}

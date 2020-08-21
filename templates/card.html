@@ -5,5 +5,14 @@
     Question: {{ card.question }} <br>
     Answer: {{ card.answer }}
 
-    <p><a class="btn mt-3 btn-sm btn-info" href="{{ url_for('welcome')}} "> << Go Back </a></p>
+    <p>
+        <a class="btn mt-3 btn-sm btn-info" href="{{ url_for('index_view')}} ">Home</a>
+        {% if index < max_index %}
+            <a class="btn mt-3 btn-sm btn-success" href="{{ url_for('card_view', index=index+1)}} ">Next Card</a>
+        {% else %}
+            <a class="btn mt-3 btn-sm btn-success" href="{{ url_for('card_view', index=0)}} ">Start Over</a>
+        {% endif %}
+        <a class="btn mt-3 btn-sm btn-danger" href="{{ url_for('remove_card_view', index=index)}} "> Delete </a>
+    </p>
+
 {% endblock %}
